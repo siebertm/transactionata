@@ -28,9 +28,9 @@ module Transactionata
       setup :load_test_data_vars
       
       alias_method :original_load_fixtures, :load_fixtures
-      def load_fixtures
+      def load_fixtures(config)
         # We need to return the value of the original load_fixtures method, so that all the fixtures magic works
-        hash = original_load_fixtures
+        hash = original_load_fixtures(config)
         existing_klass_instance_vars = self.class.instance_variables
         self.class.test_data_block.call
         @@test_data_vars = (self.class.instance_variables - existing_klass_instance_vars)
